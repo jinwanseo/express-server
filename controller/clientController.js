@@ -70,7 +70,7 @@ const getClientStatusAfterLogin = (req, res) => {
 // 클라이언트 정보 조회
 const getClient = async (req, res, next) => {
   const { clientPk } = Auth.getTokenData(req.token);
-  if (!clientPk) next("route");
+  if (!clientPk) return next("route");
 
   try {
     const client = await Client.findById(clientPk);
