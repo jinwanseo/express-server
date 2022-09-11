@@ -1,11 +1,11 @@
 
 ### [클라이언트] 내 정보 조회
-http://localhost:8888/api/client/my?managerPk=63149185fac541056a936b27 HTTP/1.1
+http://localhost:8080/api/client/my?managerPk=63149185fac541056a936b27 HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJjbGllbnRQayI6IjYzMTQ5NTEwZTZkNmFkNWJjNjk0MzAyYSJ9.VGJmfSJR1wbzuwgeIkfe65i0dFFJGonFaXBXY2aBflU
 
 ### [클라이언트] 대기열 추가
-POST http://localhost:8888/api/client/login?managerPk=63149185fac541056a936b27 HTTP/1.1
+POST http://localhost:8080/api/client/login?managerPk=63149185fac541056a936b27 HTTP/1.1
 Content-Type: Application/json
 
 {
@@ -14,23 +14,23 @@ Content-Type: Application/json
 }
 
 ### [클라이언트] 대기열 삭제
-DELETE http://localhost:8888/api/client/cancel?managerPk=63149185fac541056a936b27 HTTP/1.1
+DELETE http://localhost:8080/api/client/cancel?managerPk=63149185fac541056a936b27 HTTP/1.1
 Content-Type: Application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJjbGllbnRQayI6IjYzMTQ5NTEwZTZkNmFkNWJjNjk0MzAyYSJ9.VGJmfSJR1wbzuwgeIkfe65i0dFFJGonFaXBXY2aBflU
 
 ### [클라이언트] 스토어 정보 조회
-GET http://localhost:8888/api/client/store?managerPk=63149185fac541056a936b27 HTTP/1.1
+GET http://localhost:8080/api/client/store?managerPk=63149185fac541056a936b27 HTTP/1.1
 
 
 ### [스토어] 회원 가입
-POST http://localhost:8888/api/manager/register
+POST http://localhost:8080/api/manager/register
 Content-Type: Application/json
 
 {
   "userId" : "admin2",
   "userPw" : "Tjwjdgh3@@",
   "name" : "서진완",
-  "phone" : "010-8888-6306",
+  "phone" : "010-8080-6306",
   "storeName" : "Think Flow",
   "storeAddress" : "ThinkFlow 반포점",
   "storeNumber" : "02-333-4432",
@@ -38,7 +38,7 @@ Content-Type: Application/json
 }
 
 ### [스토어] 로그인
-POST http://localhost:8888/api/manager/login HTTP/1.1
+POST http://localhost:8080/api/manager/login HTTP/1.1
 Content-Type: Application/json
 
 {
@@ -47,33 +47,33 @@ Content-Type: Application/json
 }
 
 ### [스토어] 중복체크 (아이디)
-GET http://localhost:8888/api/manager/check/id?userId=admin1
+GET http://localhost:8080/api/manager/check/id?userId=admin1
 
 
 ### [스토어] 회원 정보 변경
-PUT http://localhost:8888/api/manager/register HTTP/1.1
+PUT http://localhost:8080/api/manager/register HTTP/1.1
 Content-Type: Application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJtYW5hZ2VyUGsiOiI2MzE0OTE4NWZhYzU0MTA1NmE5MzZiMjcifQ.Nl1KegYlVcR2eAXQRDfrHm1lOU18AmHzaeuCziDkf4I
 
 {
   "name" : "서진완1",
-  "phone" : "010-8888-6306",
+  "phone" : "010-8080-6306",
   "storeName" : "Cheap1"
 }
 
 ### [스토어] 내정보 조회
-GET http://localhost:8888/api/manager/my HTTP/1.1
+GET http://localhost:8080/api/manager/my HTTP/1.1
 Content-Type: Application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJtYW5hZ2VyUGsiOiI2MzE0OTE4NWZhYzU0MTA1NmE5MzZiMjcifQ.Nl1KegYlVcR2eAXQRDfrHm1lOU18AmHzaeuCziDkf4I
 
 ### [스토어] 대기 현황
-GET http://localhost:8888/api/manager/standby HTTP/1.1
+GET http://localhost:8080/api/manager/standby HTTP/1.1
 Content-Type: Application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJtYW5hZ2VyUGsiOiI2MzE0OTE4NWZhYzU0MTA1NmE5MzZiMjcifQ.Nl1KegYlVcR2eAXQRDfrHm1lOU18AmHzaeuCziDkf4I
 
 
 ### [스토어] 호출
-PUT http://localhost:8888/api/manager/call HTTP/1.1
+PUT http://localhost:8080/api/manager/call HTTP/1.1
 Content-Type: Application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJtYW5hZ2VyUGsiOiI2MzE0OTE4NWZhYzU0MTA1NmE5MzZiMjcifQ.Nl1KegYlVcR2eAXQRDfrHm1lOU18AmHzaeuCziDkf4I
 
@@ -82,7 +82,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJtYW5hZ2VyUGsiOiI2MzE0OTE4NWZhYzU0M
 }
 
 ### [스토어] 입장
-PUT http://localhost:8888/api/manager/enter HTTP/1.1
+PUT http://localhost:8080/api/manager/enter HTTP/1.1
 Content-Type: Application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJtYW5hZ2VyUGsiOiI2MzE0OTE4NWZhYzU0MTA1NmE5MzZiMjcifQ.Nl1KegYlVcR2eAXQRDfrHm1lOU18AmHzaeuCziDkf4I
 
@@ -91,7 +91,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJtYW5hZ2VyUGsiOiI2MzE0OTE4NWZhYzU0M
 }
 
 ### [스토어] 대기취소
-PUT http://localhost:8888/api/manager/cancel HTTP/1.1
+PUT http://localhost:8080/api/manager/cancel HTTP/1.1
 Content-Type: Application/json
 # Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJtYW5hZ2VyUGsiOiI2MzBhNDJmZTdiNjA0NzM5MGRjOTY0ZmIifQ.AGBFQFzuBnBaSYBJmGbpBdxA6EU1ScVppQ9vhfJ7xf0
 
@@ -100,7 +100,7 @@ Content-Type: Application/json
 }
 
 ### [스토어] 비밀번호 검사
-POST http://localhost:8888/api/manager/check/pw HTTP/1.1
+POST http://localhost:8080/api/manager/check/pw HTTP/1.1
 Content-Type: Application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJtYW5hZ2VyUGsiOiI2MzE0OTE4NWZhYzU0MTA1NmE5MzZiMjcifQ.Nl1KegYlVcR2eAXQRDfrHm1lOU18AmHzaeuCziDkf4I
 
@@ -109,7 +109,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJtYW5hZ2VyUGsiOiI2MzE0OTE4NWZhYzU0M
 }
 
 ### [스토어] 비밀번호 변경
-PUT http://localhost:8888/api/manager/change/pw HTTP/1.1
+PUT http://localhost:8080/api/manager/change/pw HTTP/1.1
 Content-Type: Application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJtYW5hZ2VyUGsiOiI2MzE0OTE4NWZhYzU0MTA1NmE5MzZiMjcifQ.Nl1KegYlVcR2eAXQRDfrHm1lOU18AmHzaeuCziDkf4I
 
