@@ -127,9 +127,7 @@ const login = async (req, res) => {
     name,
     phone,
     created: new Date(),
-    isCalled: false,
-    isEntered: false,
-    isCanceled: false,
+    status: "wait",
   };
 
   // 클라이언트 없을시 객체 생성

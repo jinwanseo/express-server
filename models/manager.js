@@ -50,7 +50,7 @@ const managerSchema = new Schema({
   clients: {
     type: Array,
     // clients item 저장 정보
-    // clientPk, managerPk, name, phone, created, isEntered, isCalled, isCanceled
+    // clientPk, managerPk, name, phone, created, status
   },
 });
 

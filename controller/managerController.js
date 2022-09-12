@@ -278,8 +278,8 @@ const callClient = async (req, res) => {
   const manager = req.manager;
   const client = req.client;
 
-  client.managers[req.selectedManagerIdx].isCalled = true;
-  manager.clients[req.selectedClientIdx].isCalled = true;
+  client.managers[req.selectedManagerIdx].status = "call";
+  manager.clients[req.selectedClientIdx].status = "call";
 
   await updateManagerAndClient(req, res);
 
@@ -295,7 +295,7 @@ const enterClient = async (req, res) => {
   const client = req.client;
 
   // 입장 처리, 취소 처리는 manager.clients 내 유저정보 삭제
-  client.managers[req.selectedManagerIdx].isEntered = true;
+  client.managers[req.selectedManagerIdx].status = "enter";
   manager.clients.splice(req.selectedManagerIdx, 1);
 
   await updateManagerAndClient(req, res);
@@ -312,7 +312,7 @@ const cancelClient = async (req, res) => {
   const client = req.client;
 
   // 입장 처리, 취소 처리는 manager.clients 내 유저정보 삭제
-  client.managers[req.selectedManagerIdx].isCanceled = true;
+  client.managers[req.selectedManagerIdx].status = "cancel";
   manager.clients.splice(req.selectedManagerIdx, 1);
   await updateManagerAndClient(req, res);
 
