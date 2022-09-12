@@ -58,8 +58,6 @@ const getClientStatusAfterLogin = (req, res) => {
       (standby) => String(standby.clientPk) === String(client._id)
     ) + 1;
 
-  console.log(manager, client, count);
-
   return res.status(200).json({
     status: "afterLogin",
     count: count,
@@ -69,8 +67,9 @@ const getClientStatusAfterLogin = (req, res) => {
 
 // 클라이언트 정보 조회
 const getClient = async (req, res, next) => {
-  const { clientPk } = Auth.getTokenData(req.token);
+  const { clientPk, managerPk } = Auth.getTokenData(req.token);
   if (!clientPk) return next("route");
+  if (managerPk) req.managerPk = managerPk;
 
   try {
     const client = await Client.findById(clientPk);
@@ -80,7 +79,6 @@ const getClient = async (req, res, next) => {
         msg: "Client 정보를 다시 확인 해주세요",
         code: "NOT_CLIENT",
       });
-
     req.user = client;
     return next();
 
@@ -117,6 +115,8 @@ const isLinkManager = async (req, res, next) => {
 
 // 대기 등록 (로그인)
 const login = async (req, res) => {
+  // 매니저 로그인 정보
+  const managerPkObj = req.managerPk ? { managerPk: req.managerPk } : {};
   const manager = req.manager;
   const { name, phone } = req.body;
 
@@ -151,6 +151,7 @@ const login = async (req, res) => {
       msg: "이미 로그인 되어있는 상태",
       accessToken: Auth.createToken({
         clientPk: String(req.user._id),
+        ...managerPkObj,
       }),
       totalCnt: manager?.clients?.length ?? 0,
       count: count,
@@ -168,6 +169,7 @@ const login = async (req, res) => {
     return res.status(200).json({
       accessToken: Auth.createToken({
         clientPk: String(req.user._id),
+        ...managerPkObj,
       }),
       totalCnt: manager?.clients?.length ?? 0,
       count: manager?.clients?.length ?? 0,

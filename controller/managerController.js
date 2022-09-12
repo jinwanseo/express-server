@@ -140,6 +140,7 @@ const changeManager = async (req, res, next) => {
 // 매니저 로그인
 const loginManager = async (req, res, next) => {
   const { userId, userPw } = req.body;
+
   try {
     const manager = await Manager.findOne({
       userId: userId,
@@ -151,10 +152,20 @@ const loginManager = async (req, res, next) => {
       });
     }
 
+    // // 1. 토큰 정보 GET
+    let clientObj = {};
+    const token = Auth.getToken(req.headers.authorization);
+    if (token) {
+      const { clientPk } = Auth.getTokenData(token);
+      // 2. 있다면 토큰 발급시 추가
+      clientObj = clientPk ? { clientPk: clientPk } : {};
+    }
+
     return res.status(200).json({
       msg: "로그인 성공",
       accessToken: Auth.createToken({
         managerPk: String(manager._id),
+        ...clientObj,
       }),
     });
   } catch (err) {
@@ -200,7 +211,7 @@ const checkClient = async (req, res, next) => {
         code: "NOT_CLIENT",
       });
 
-    req.client = client;
+    req.user = client;
 
     const selectManager = await Manager.findById(manager._id).find({
       "clients.clientPk": client._id,
@@ -224,7 +235,7 @@ const checkClient = async (req, res, next) => {
 
 // 클라이언트 <> 매니저 연결 여부 확인
 const isLinkClient = async (req, res, next) => {
-  const client = req.client;
+  const client = req.user;
   const manager = req.manager;
 
   const selectedManagerIdx = client.managers.findIndex(
@@ -276,7 +287,7 @@ const updateManagerAndClient = async (req, res) => {
 // 유저 호출
 const callClient = async (req, res) => {
   const manager = req.manager;
-  const client = req.client;
+  const client = req.user;
 
   client.managers[req.selectedManagerIdx].status = "call";
   manager.clients[req.selectedClientIdx].status = "call";
@@ -292,7 +303,7 @@ const callClient = async (req, res) => {
 // 유저 입장
 const enterClient = async (req, res) => {
   const manager = req.manager;
-  const client = req.client;
+  const client = req.user;
 
   // 입장 처리, 취소 처리는 manager.clients 내 유저정보 삭제
   client.managers[req.selectedManagerIdx].status = "enter";
@@ -309,7 +320,7 @@ const enterClient = async (req, res) => {
 // 유저 대기 취소 처리
 const cancelClient = async (req, res) => {
   const manager = req.manager;
-  const client = req.client;
+  const client = req.user;
 
   // 입장 처리, 취소 처리는 manager.clients 내 유저정보 삭제
   client.managers[req.selectedManagerIdx].status = "cancel";
