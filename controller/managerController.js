@@ -265,7 +265,9 @@ const isLinkClient = async (req, res, next) => {
 
 //
 const updateManagerAndClient = async (req, res) => {
-  const { client, manager } = req;
+  const manager = req.manager;
+  const client = req.user;
+
   try {
     await Manager.findByIdAndUpdate(manager._id, manager);
   } catch (err) {
@@ -307,7 +309,7 @@ const enterClient = async (req, res) => {
 
   // 입장 처리, 취소 처리는 manager.clients 내 유저정보 삭제
   client.managers[req.selectedManagerIdx].status = "enter";
-  manager.clients.splice(req.selectedManagerIdx, 1);
+  manager.clients[req.selectedClientIdx].status = "enter";
 
   await updateManagerAndClient(req, res);
 
@@ -324,7 +326,8 @@ const cancelClient = async (req, res) => {
 
   // 입장 처리, 취소 처리는 manager.clients 내 유저정보 삭제
   client.managers[req.selectedManagerIdx].status = "cancel";
-  manager.clients.splice(req.selectedManagerIdx, 1);
+  manager.clients[req.selectedClientIdx].status = "cancel";
+
   await updateManagerAndClient(req, res);
 
   return res.status(200).json({

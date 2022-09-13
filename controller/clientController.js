@@ -68,17 +68,23 @@ const getClientStatusAfterLogin = (req, res) => {
 // 클라이언트 정보 조회
 const getClient = async (req, res, next) => {
   const { clientPk, managerPk } = Auth.getTokenData(req.token);
-  if (!clientPk) return next("route");
+
   if (managerPk) req.managerPk = managerPk;
+  if (!clientPk) return next("route");
 
   try {
     const client = await Client.findById(clientPk);
 
-    if (!client)
+    if (!client) {
+      let tokenObj = managerPk
+        ? { accessToken: Auth.createToken({ managerPk }) }
+        : {};
       return res.status(404).json({
         msg: "Client 정보를 다시 확인 해주세요",
         code: "NOT_CLIENT",
+        ...tokenObj,
       });
+    }
     req.user = client;
     return next();
 
