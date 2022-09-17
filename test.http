@@ -1,11 +1,11 @@
 
 ### [클라이언트] 내 정보 조회
-GET https://standby-server.herokuapp.com/api/client/my?managerPk=631d48890cc494db9bb1a35f HTTP/1.1
+GET http://localhost:8080/api/client/my?managerPk=631f3313b85886030681fafd HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJjbGllbnRQayI6IjYzMTQ5NTEwZTZkNmFkNWJjNjk0MzAyYSJ9.VGJmfSJR1wbzuwgeIkfe65i0dFFJGonFaXBXY2aBflU
 
 ### [클라이언트] 대기열 추가
-POST https://standby-server.herokuapp.com/api/client/login?managerPk=631d48890cc494db9bb1a35f HTTP/1.1
+POST https://standby-server.herokuapp.com/api/client/login?managerPk=631f3313b85886030681fafd HTTP/1.1
 Content-Type: Application/json
 
 {
@@ -14,12 +14,12 @@ Content-Type: Application/json
 }
 
 ### [클라이언트] 대기열 삭제
-DELETE https://standby-server.herokuapp.com/api/client/cancel?managerPk=631d48890cc494db9bb1a35f HTTP/1.1
+DELETE https://standby-server.herokuapp.com/api/client/cancel?managerPk=631f3313b85886030681fafd HTTP/1.1
 Content-Type: Application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJjbGllbnRQayI6IjYzMTQ5NTEwZTZkNmFkNWJjNjk0MzAyYSJ9.VGJmfSJR1wbzuwgeIkfe65i0dFFJGonFaXBXY2aBflU
 
 ### [클라이언트] 스토어 정보 조회
-GET https://standby-server.herokuapp.com/api/client/store?managerPk=631d48890cc494db9bb1a35f HTTP/1.1
+GET https://standby-server.herokuapp.com/api/client/store?managerPk=631f3313b85886030681fafd HTTP/1.1
 
 
 ### [스토어] 회원 가입

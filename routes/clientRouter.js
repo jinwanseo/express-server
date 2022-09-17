@@ -1,76 +1,78 @@
 import { Router } from "express";
 
 import * as clientController from "../controller/clientController.js";
+
 const router = Router();
 
+// 스토어 정보 조회
+router.get(`/store`, [
+  // 1. 접속 스토어 조회
+  clientController.getManager,
+  // 2. 스토어 정보 전송
+  clientController.resManager,
+]);
+
 // 내 정보 조회
-router.get("/my", [
-  // 1. 스토어 정보 조회
-  clientController.getManagerInfo,
+router.get(`/my`, [
+  // 1. 접속 스토어 조회
+  clientController.getManager,
 
-  // 2. 토큰 조회
+  // 2. 토큰 유무
   clientController.hasToken,
 
-  // 3. 클라이언트 조회
-  clientController.getClient,
+  // 3. 토큰 조회
+  clientController.checkToken,
 
-  // 4. 클라이언트 <-> 매니저 관련 여부 조회
-  clientController.isLinkManager,
+  // 4. 유저 정보 조회
+  clientController.checkClient,
 
-  // 5. 클라이언트 상태 전송 (로그인 후)
-  clientController.getClientStatusAfterLogin,
-]);
-// 내 정보 조회 - 토큰 없을시 (로그인 하기 전)
-router.get("/my", [
-  // 클라이언트 상태 전송 (로그인 전)
-  clientController.getClientStatusBeforeLogin,
+  // 5. 유저 정보 전송
+  clientController.resClient,
 ]);
 
-// 첫 페이지
-router.get("/store", [
-  // 1. 스토어 정보 조회
-  clientController.getManagerInfo,
-  // 2. 매니저 정보 리턴
-  (req, res) =>
-    res.status(200).json({
-      manager: req.manager,
-    }),
-]);
+// 대기 등록
+router.post(`/login`, [
+  // 1. 접속 스토어 조회
+  clientController.getManager,
 
-// 대기 등록 (로그인)
-router.post("/login", [
-  // 1. 스토어 정보 조회
-  clientController.getManagerInfo,
-  // 2. 토큰 조회
+  // 2. 토큰 유무
   clientController.hasToken,
-  // 3. 클라이언트 조회
-  clientController.getClient,
-  // 4. 대기등록 (로그인)
-  clientController.login,
+
+  // 3. 토큰 조회
+  clientController.checkToken,
+
+  // 4. 유저 대기 등록
+  clientController.loginClient,
 ]);
-// 대기 등록 - 토큰 없을시 (로그인 하기전)
-router.post("/login", [clientController.login]);
+// 대기 등록 (토큰 없을때 로그인 처리)
+router.post("/login", [clientController.loginClient]);
 
 // 대기 취소
-router.delete("/cancel", [
-  // 1. 스토어 정보 조회
-  clientController.getManagerInfo,
+router.delete(`/cancel`, [
+  // 1. 접속 스토어 조회
+  clientController.getManager,
 
-  // 2. 토큰 조회
+  // 2. 토큰 유무
   clientController.hasToken,
 
-  // 3. 클라이언트 조회
-  clientController.getClient,
+  // 3. 토큰 조회
+  clientController.checkToken,
 
-  // 4. 대기 취소
-  clientController.cancel,
+  // 4. 유저 정보 조회
+  clientController.checkClient,
+
+  // 5. 유저 정보 전송 (대기 취소)
+  clientController.cancelClient,
 ]);
-// 대기 취소 - 토큰 없을시
-router.delete("/cancel", (req, res) => {
-  return res.status(404).json({
-    msg: "토큰 정보 없음",
-    code: "NOT_TOKEN",
-  });
-});
+
+// 토큰 삭제
+router.delete(`/token/remove`, [
+  // 1. 토큰 유무
+  clientController.hasToken,
+  // 2. 토큰 조회
+  clientController.checkToken,
+  // 3. 토큰 삭제
+  clientController.removeToken,
+]);
 
 export default router;
