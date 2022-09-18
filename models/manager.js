@@ -49,6 +49,7 @@ const managerSchema = new Schema({
   },
   clients: {
     type: Array,
+    default: [],
     // clients item 저장 정보
     // clientPk, managerPk, name, phone, created, status
   },

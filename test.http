@@ -23,26 +23,26 @@ GET https://standby-server.herokuapp.com/api/client/store?managerPk=631f3313b858
 
 
 ### [스토어] 회원 가입
-POST https://standby-server.herokuapp.com/api/manager/register
+POST http://localhost:8080/api/manager/register
 Content-Type: Application/json
 
 {
-  "userId" : "admin@gmail.com",
+  "userId" : "admin12@gmail.com",
   "userPw" : "Tjwjdgh3@@",
   "name" : "서진완",
   "phone" : "010-8080-6306",
-  "storeName" : "투게더",
+  "storeName" : "투게더스",
   "storeAddress" : "투게더 반포점",
   "storeNumber" : "02-333-4432",
   "blogUrl" : "http://togetherlab.co.kr"
 }
 
 ### [스토어] 로그인
-POST https://standby-server.herokuapp.com/api/manager/login HTTP/1.1
+POST http://localhost:8080/api/manager/login HTTP/1.1
 Content-Type: Application/json
 
 {
-  "userId" : "admin2",
+  "userId" : "admin@gmail.com",
   "userPw" : "Tjwjdgh3@@"
 }
 
@@ -62,9 +62,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJtYW5hZ2VyUGsiOiI2MzE0OTE4NWZhYzU0M
 }
 
 ### [스토어] 내정보 조회
-GET https://standby-server.herokuapp.com/api/manager/my HTTP/1.1
+GET http://localhost:8080/api/manager/my HTTP/1.1
 Content-Type: Application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJtYW5hZ2VyUGsiOiI2MzE0OTE4NWZhYzU0MTA1NmE5MzZiMjcifQ.Nl1KegYlVcR2eAXQRDfrHm1lOU18AmHzaeuCziDkf4I
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJtYW5hZ2VyUGsiOiI2MzFmMzMxM2I4NTg4NjAzMDY4MWZhZmQifQ.hRiKQgrewjMuno3fwIKEqv250TyqrsLW7OE_LXjRaak
 
 ### [스토어] 대기 현황
 GET https://standby-server.herokuapp.com/api/manager/standby HTTP/1.1

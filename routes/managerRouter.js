@@ -3,138 +3,130 @@ import * as managerController from "../controller/managerController.js";
 
 const router = Router();
 
-// 아이디 (중복 체크)
+// 아이디 중복체크
 router.get("/check/id", [
-  // 1. 아이디 중복 체크
-  managerController.duplicateUserId,
+  // 아이디 중복 체크
+  managerController.checkId,
 ]);
 
-// 회원 가입
+// 회원가입
 router.post("/register", [
-  // 1. 회원 가입 처리
-  managerController.registerUser,
+  // 회원 가입
+  managerController.createManager,
 ]);
 
 // 회원 정보 변경
 router.put("/register", [
-  // 1. 토큰 검사
-  managerController.hasToken,
-  // 2. 토큰 유효성 검사
-  managerController.checkToken,
-  // 3. 회원 정보 검사
-  managerController.checkManager,
-  // 4. 회원 정보 변경 처리
-  managerController.changeManager,
+  // 토큰 유무
+  // 토큰 조회
+  // 유저 조회
+  // 정보 변경
 ]);
 
 // 로그인
 router.post("/login", [
-  // 1. 로그인 처리
+  // 로그인
   managerController.loginManager,
 ]);
 
 // 내 정보 조회
 router.get("/my", [
-  // 1. 토큰 검사
+  // 토큰 유무
   managerController.hasToken,
-  // 2. 토큰 유효성 검사
+  // 토큰 조회
   managerController.checkToken,
-  // 3. 회원 정보 검사
+  // 유저 조회
   managerController.checkManager,
-  // 4. 회원 정보 전송 처리
-  managerController.getManager,
+  // 유저 정보 전송
+  managerController.resManager,
 ]);
 
 // 대기 현황
 router.get("/standby", [
-  // 1. 토큰 검사
+  // 토큰 유무
   managerController.hasToken,
-  // 2. 토큰 유효성 검사
+  // 토큰 조회
   managerController.checkToken,
-  // 3. 회원 정보 검사
+  // 유저 조회
   managerController.checkManager,
-  // 4. 대기 현황 전송 처리
-  managerController.checkStandByStatus,
+  // 대기 현황 정보 전송
 ]);
 
 // 호출
 router.put("/call", [
-  // 1. 토큰 검사
+  // 토큰 유무
   managerController.hasToken,
-  // 2. 토큰 유효성 검사
+  // 토큰 조회
   managerController.checkToken,
-  // 3. 회원 정보 검사
+  // 유저 조회
   managerController.checkManager,
-  // 4. 고객 정보 검사
-  managerController.checkClient,
-  // 5. 스토어 < > 고객 간 정보 링크 여부 검사
-  managerController.isLinkClient,
-  // 6. 스토어, 고객 호출 처리 정보 저장
-  managerController.callClient,
+  // 호출 처리
 ]);
 
 // 입장
 router.put("/enter", [
-  // 1. 토큰 검사
+  // 토큰 유무
   managerController.hasToken,
-  // 2. 토큰 유효성 검사
+  // 토큰 조회
   managerController.checkToken,
-  // 3. 회원 정보 검사
+  // 유저 조회
   managerController.checkManager,
-  // 4. 고객 정보 검사
-  managerController.checkClient,
-  // 5. 스토어 < > 고객 간 정보 링크 여부 검사
-  managerController.isLinkClient,
-  // 6. 스토어, 고객 입장 처리 정보 저장
-  managerController.enterClient,
+  // 입장 처리
 ]);
 
 // 대기 취소
 router.put("/cancel", [
-  // 1. 토큰 검사
+  // 토큰 유무
   managerController.hasToken,
-  // 2. 토큰 유효성 검사
+  // 토큰 조회
   managerController.checkToken,
-  // 3. 회원 정보 검사
+  // 유저 조회
   managerController.checkManager,
-  // 4. 고객 정보 검사
-  managerController.checkClient,
-  // 5. 스토어 < > 고객 간 정보 링크 여부 검사
-  managerController.isLinkClient,
-  // 6. 스토어, 고객 입장 처리 정보 저장
-  managerController.cancelClient,
+  // 대기 취소 처리
 ]);
 
-// 비밀 번호 확인
+// 캐시 삭제
+router.delete("/cache/clients", [
+  // 토큰 유무
+  managerController.hasToken,
+  // 토큰 조회
+  managerController.checkToken,
+  // 유저 조회
+  managerController.checkManager,
+  // 캐시 삭제 처리
+]);
+
+// 비번 확인
 router.post("/check/pw", [
-  // 1. 토큰 검사
+  // 토큰 유무
   managerController.hasToken,
-  // 2. 토큰 유효성 검사
+  // 토큰 조회
   managerController.checkToken,
-  // 3. 회원 정보 검사
+  // 유저 조회
   managerController.checkManager,
-  // 4. 비밀 번호 검사
-  managerController.checkPw,
-  (req, res) => {
-    return res.status(200).json({
-      msg: "비밀번호 같음",
-      code: "OK",
-    });
-  },
+  // 비번 확인
 ]);
 
-// 비밀 번호 변경
+// 비번 변경
 router.put("/change/pw", [
-  // 1. 토큰 검사
+  // 토큰 유무
   managerController.hasToken,
-  // 2. 토큰 유효성 검사
+  // 토큰 조회
   managerController.checkToken,
-  // 3. 회원 정보 검사
+  // 유저 조회
   managerController.checkManager,
-  // 4. 비밀 번호 검사
-  managerController.checkPw,
-  // 5. 변경할 비밀번호 적용
-  managerController.changePw,
+  // 비번 확인
+  // 비번 변경
+]);
+
+// 토큰 삭제
+router.delete(`/token/remove`, [
+  // // 1. 토큰 유무
+  // managerController.hasToken,
+  // // 2. 토큰 조회
+  // managerController.checkToken,
+  // // 3. 토큰 삭제
+  // managerController.removeToken,
 ]);
 
 export default router;
