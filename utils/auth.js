@@ -16,10 +16,12 @@ const getToken = (authorization) => {
 const getTokenData = (token) => {
   try {
     return jwt.verify(token, JWT_SECRET);
-  } catch (err) {
-    throw {
-      msg: "토큰 만료",
-      code: "EXP_TOKEN",
+  } catch {
+    return {
+      errData: {
+        msg: "토큰 만료",
+        code: "EXP_TOKEN",
+      },
     };
   }
 };

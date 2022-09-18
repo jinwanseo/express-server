@@ -59,7 +59,12 @@ const checkToken = async (req, res, next) => {
   // 스토어 정보
   const manager = req.manager;
   // 토큰 데이터 검사
-  const { clientPk, managerPk } = Auth.getTokenData(req.token);
+  const { clientPk, managerPk, errData } = Auth.getTokenData(req.token);
+  // 토큰 데이터 (파싱) 에러시
+  if (errData)
+    return res.status(401).json({
+      ...errData,
+    });
   // 토큰 내 정보 저장
   req.clientPk = clientPk;
   req.managerPk = managerPk;
