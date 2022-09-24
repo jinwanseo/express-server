@@ -18,8 +18,11 @@ router.post("/register", [
 // 회원 정보 변경
 router.put("/register", [
   // 토큰 유무
+  managerController.hasToken,
   // 토큰 조회
+  managerController.checkToken,
   // 유저 조회
+  managerController.checkManager,
   // 정보 변경
 ]);
 
